@@ -20,9 +20,9 @@ var Product=sequelize.define('products',{
         type:Sequelize.STRING,
         field:'animal_destinated'
     },
-     description:{
+     descriptions:{
         type:Sequelize.STRING,
-        field:'description'
+        field:'descriptions'
     },
     price:{
         type:Sequelize.DOUBLE,
@@ -69,6 +69,7 @@ var app=new express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(nodeadmin(app));
+app.use('/admin', express.static('admin'));
 app.listen(process.env.PORT);
 
 
