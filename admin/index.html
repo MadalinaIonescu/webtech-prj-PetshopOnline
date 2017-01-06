@@ -2,23 +2,52 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="style.css"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
        
     </head>
     <body>
+        <div class="containerr">
+        <div class="header">
+			<!-- logo  -->
+            <div id="logo">
+                <img src="media/logo.png" alt="Petshop Online">
+            </div>
+            <div id="title">
+                <h1>Petshop Online</h1>
+            </div>
+            <div id="navigation">
+                <ul>
+                    <li id="principlePage">
+                        <a href="index.html" class="sep">See the products</a>
+                    </li>
+					
+                    <li id="ordersPage">
+                        <a href="orders.html" class="sep">Make an order</a>
+                        
+					</li>
+					
+                    
+                </ul>
+            </div>
+
+            
+        </div>
+    </div>
+        <!--aici incepe codul-->
       <div class="container">
           <div class="row">
               <div class="col-md-12">
-                  <h1>Petshop Online</h1>
+                  <h2>We present our range of products</h2>
               </div>
           </div>
           <br/>
           <div class="row">
               <div class="col-md-12">
                   <div class="pull-right">
-                      <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal" onclick="addRecord()">Adauga</button>
+                      <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal" onclick="addRecord()">Add</button>
                   </div>
               </div>
           </div>
@@ -26,7 +55,7 @@
                   <div class="col-md-12">
                       <div class="records_content">
                           <br/>
-                          <h3>Produse</h3>
+                          <h3>Products</h3>
                           <table id="products" class="table table-bordered table-striped">
                               <tr>
                                   <th>ID.</th>
@@ -37,12 +66,12 @@
                               </tr>
                           </table>
                       </div>
-                  </<div>
+                  </div>
                       
                </div>
       </div>
       <div class="modal fade" id="add_new_record_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role-"document">
+          <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

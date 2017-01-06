@@ -32,39 +32,60 @@ var Product=sequelize.define('products',{
      timestamps: false
 });
 
-// var Order=sequelize.define('orders',{
-//     data:{
-//         type:Sequelize.DATE,
-//         field:'data'
-//     },
-//     name:{
-//         type:Sequelize.STRING,
-//         field:'name'
-//     },
-//      phone:{
-//         type:Sequelize.STRING,
-//         field:'phone'
-//     },
-//     email:{
-//         type:Sequelize.STRING,
-//         field:'email'
-//     },
-//     address:{
-//         type:Sequelize.STRING,
-//         field:'address'
-//     },
-//      details:{
-//         type:Sequelize.STRING,
-//         field:'details'
-//     },
-//     total_payment:{
-//         type:Sequelize.DOUBLE,
-//         field:'total_payment'
-//     }
-// },{
-//      timestamps: false
-// });
+var Order=sequelize.define('orders',{
+    data:{
+        type:Sequelize.DATE,
+        field:'data'
+    },
+    name:{
+        type:Sequelize.STRING,
+        field:'name'
+    },
+     phone:{
+        type:Sequelize.STRING,
+        field:'phone'
+    },
+    email:{
+        type:Sequelize.STRING,
+        field:'email'
+    },
+    address:{
+        type:Sequelize.STRING,
+        field:'address'
+    },
+     details:{
+        type:Sequelize.STRING,
+        field:'details'
+    },
+    total_payment:{
+        type:Sequelize.DOUBLE,
+        field:'total_payment'
+    }
+},{
+     timestamps: false
+});
 
+var Tranzaction=sequelize.define('tranzactions',{
+    no_order:{
+        type:Sequelize.INTEGER,
+        field:'no_order'
+    },
+    id_product:{
+        type:Sequelize.INTEGER,
+        field:'id_product'
+    },
+     price:{
+        type:Sequelize.DOUBLE,
+        field:'price'
+    },
+    quantity:{
+        type:Sequelize.INTEGER,
+        field:'quantity'
+    }
+    },
+    {
+     timestamps: false
+});
 var app=new express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -140,4 +161,21 @@ app.delete('/products/:id',function(request,response){
              response.status(404).send();
         }
   }); 
+});
+
+//create a new order
+app.post('/orders',function(request,response){
+    Order.create(request.body).then(function(order){
+        Order.findById(order.no_order).then(function(order){
+             response.status(201).send(order);
+        });
+    });
+});
+
+app.post('/tranzactions',function(request,response){
+    Tranzaction.create(request.body).then(function(tranzaction){
+        Tranzaction.findById(tranzaction.id_tr).then(function(order){
+             response.status(201).send(tranzaction);
+        });
+    });
 });

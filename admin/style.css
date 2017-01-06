@@ -1,0 +1,123 @@
+
+body{
+ margin:0px;
+ padding:0px;
+ background-color:#ece7d7;
+}
+
+
+/*HEADER*/
+
+.containerr{
+    height:135px;
+    margin:0px;
+    background-color:#1f1712;
+    border-bottom:1px solid black;
+    overflow:hidden;
+}
+
+.header{
+    margin:0 auto;
+    width:1062px;
+    height:137px;
+}
+
+
+/*Logo*/
+#logo{
+    margin:40px 0px 20px 0px;
+    width:77px;
+    height:77px;
+    float:left;
+
+}
+
+#logo img{
+    margin:0px;
+    width:77px;
+    height:77px;
+    font-family: 'Doppio One',sans-serif;
+}
+
+
+/*Title*/
+#title{
+    margin:40px 0px 0px 30px;
+    width:500px;
+    height:54px;
+    float:left;
+}
+
+#title h1{
+    margin:0px;
+    line-height:0.8em;
+    color:#ffffff;
+    font-family: 'Doppio One',sans-serif;
+    font-size:50px;
+    font-weight:normal;
+}
+
+
+
+
+
+/*Bara Navigatie*/
+#navigation{
+    width:730px;
+    height:25px;
+    margin-left:27px;
+    float:left;
+}
+
+#navigation ul{
+    list-style-type:none;
+    margin:0px 0px 0px 5px;
+    padding:0px;
+    float:left;
+}
+
+
+#navigation li{
+    margin:0px 10px 0px 0px;
+    padding: 0px 15px 0px 0px;
+    display:inline;
+    text-align:left;
+    border:none;
+    font-family: 'Doppio One',sans-serif;
+    float:left;
+}
+
+#navigation a{
+    text-decoration:none;
+    padding-left:5px;
+    color: #ffffff;
+    outline:0;
+    font-family: 'Doppio One', sans-serif;
+    font-size:20px;
+    font-weight:lighter;
+    display:block;
+}
+
+
+#navigation li:hover a {
+    color:#e87f3d;
+    background-color: #ece7d7;
+    font-weight: bold;
+}
+
+
+#navigation li .sep {
+    padding-right:23px;
+}
+
+.my_form{
+    display: inline;
+}
+
+ .inline {
+  display: inline!important;
+  float: right;
+  width:230px;
+  height:230px;
+  margin-right:100px;
+}
