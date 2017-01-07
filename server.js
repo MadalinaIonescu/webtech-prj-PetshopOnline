@@ -166,7 +166,8 @@ app.delete('/products/:id',function(request,response){
 //create a new order
 app.post('/orders',function(request,response){
     Order.create(request.body).then(function(order){
-        Order.findById(order.no_order).then(function(order){
+        console.log(request.body);
+        Order.findById(order.id).then(function(order){
              response.status(201).send(order);
         });
     });
@@ -174,7 +175,7 @@ app.post('/orders',function(request,response){
 
 app.post('/tranzactions',function(request,response){
     Tranzaction.create(request.body).then(function(tranzaction){
-        Tranzaction.findById(tranzaction.id_tr).then(function(order){
+        Tranzaction.findById(tranzaction.id).then(function(order){
              response.status(201).send(tranzaction);
         });
     });
