@@ -54,17 +54,18 @@ function createMyProduct(){
     dataCells = '<td class="product_name">'+productName+'</td>'
     +'<td class="price">'+productPrice+'</td>'
     +'<td class="quantity">'+productQuantity+'</td>'
+    +'<td class="product_id" style="display:none;">'+productId+'</td>'
     +'<td align="center">'
     +'<button onclick="viewMyProduct('+productId+','+i+')" class="btn btn-edit">Update</button>'
     +'</td>'
      +'<td align="center">'
     +'<button onclick="deleteMyProduct('+i+')" class="btn btn-danger">Exclude</button>'
-    +'</td>'
-      console.log("id-ul prod sel este"+productId);
+    +'</td>';
+     
     var row='<tr id="row_id_'+i+'">'+dataCells+'</tr>';
     $('#myProducts').append(row);
     i=i+1;
-     
+   console.log( dataCells);
     total_payment+=productPrice*productQuantity; 
     document.getElementById("total_payment").value = total_payment;
       
@@ -74,11 +75,7 @@ function createMyProduct(){
 }
 
 function insertOrderTranzactions(){
-    // var name = document.getElementById("name").value;
-    // var phone= document.getElementById("phone").value;
-    // var email = document.getElementById("email").value;
-    // var address = document.getElementById("address").value;
-    // var contact = document.getElementById("contact").value;
+   
     var formData=$('#order_form').serializeObject();
      $.ajax({
         url:'/orders/',
@@ -88,38 +85,57 @@ function insertOrderTranzactions(){
         },
         data:formData,
         success:function(data){
-         console.log("ok");
-        }
-    });
+            
+         var noOrder=data.id;
+         for(var j=0;j<i;j++){
+            console.log("j="+j);
+            var id_product=  $('#row_id_'+j+'>td.product_id').text();
+            console.log("id rand produs de inserat in tr"+id_product);
+            var tableData=createJsonTranzaction(noOrder,id_product,j);
+            $.ajax({
+            url:'/tranzactions/',
+            type:'POST',
+            accepts:{
+                json:'application/json'
+            },
+            data:tableData,
+            success:function(data){
+              console.log(data); 
+         }
+        });
+    }
+        window.open("thankYou.html", "_self");
+}
+});
 }
 
 
 function viewMyProduct(idProduct, id){
-    console.log("update!");
-   console.log("id-ul prod upd este"+idProduct);
-   console.log("id-ul randului este"+id);
+//     console.log("update!");
+//   console.log("id-ul prod upd este"+idProduct);
+//   console.log("id-ul randului este"+id);
 
-   // populateSelPorducts();
-    $('#myModalLabel').html('Edit Product ');
-    flag=1;
-    $("#selProduct").val(idProduct);
- //  $("#selProduct").prop("selectedIndex", idProduct);
-    var qu=parseInt( $('#row_id_'+id+'>td.quantity').text(),10);
-    console.log("cantitate="+qu);
-    $("#quantity").val(qu);
-    $("#id").val(id);  
-   var a= $("#id").val();
-    console.log("in view-id rand:"+a);
-    $('#add_new_product_modal').modal('show');
+  
+//     $('#myModalLabel').html('Edit Product ');
+//     flag=1;
+//     $("#selProduct").val(idProduct);
+
+//     var qu=parseInt( $('#row_id_'+id+'>td.quantity').text(),10);
+//     console.log("cantitate="+qu);
+//     $("#quantity").val(qu);
+//     $("#id").val(id);  
+//   var a= $("#id").val();
+//     console.log("in view-id rand:"+a);
+//     $('#add_new_product_modal').modal('show');
     
     
-    $.get("/products/"+idProduct,{},function(data, status){
-    var productPrice= data.price;
-    total_payment-=productPrice*qu; 
+//     $.get("/products/"+idProduct,{},function(data, status){
+//     var productPrice= data.price;
+//     total_payment-=productPrice*qu; 
    
-    document.getElementById("total_payment").value = total_payment;
+//     document.getElementById("total_payment").value = total_payment;
     
-    });
+//     });
 }        
        
 
@@ -138,12 +154,13 @@ function updateMyProduct(){
     var  dataCells = '<td class="product_name">'+productName+'</td>'
     +'<td class="price">'+productPrice+'</td>'
     +'<td class="quantity">'+productQuantity+'</td>'
+    +'<td class="product_id" style="display:none;">'+productId+'</td>'
     +'<td align="center">'
     +'<button onclick="viewMyProduct('+productId+','+i+')" class="btn btn-edit">Update</button>'
     +'</td>'
      +'<td align="center">'
     +'<button onclick="deleteMyProduct('+i+')" class="btn btn-danger">Exclude</button>'
-    +'</td>'
+    +'</td>';
       console.log("id-ul prod sel este"+productId);
     var row='<tr id="row_id_'+i+'">'+dataCells+'</tr>';
     $('#myProducts').append(row);
@@ -173,6 +190,7 @@ function deleteMyProduct(id){
     document.getElementById("total_payment").value = total_payment;
     $('#row_id_'+id).remove();
     i=i-1;
+   
 }
 
 $.fn.serializeObject=function()
@@ -192,3 +210,17 @@ $.fn.serializeObject=function()
     });
     return o;
 };
+
+function createJsonTranzaction(noOrder, id,j) {
+         var productQuantity= $('#row_id_'+j+'>td.quantity').text();
+        var productPrice=$('#row_id_'+j+'>td.price').text();
+        console.log("pret:"+productPrice);
+        console.log("quantity"+productQuantity);
+        var item = {};
+        item ["id_product"] = id;
+        item ["no_order"] = noOrder;
+        item["price"]=productPrice;
+        item["quantity"]=productQuantity;
+
+        return item;
+    }

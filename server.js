@@ -35,7 +35,8 @@ var Product=sequelize.define('products',{
 var Order=sequelize.define('orders',{
     data:{
         type:Sequelize.DATE,
-        field:'data'
+        field:'data',
+        defaultValue: Sequelize.NOW
     },
     name:{
         type:Sequelize.STRING,
@@ -91,7 +92,11 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(nodeadmin(app));
 app.use('/admin', express.static('admin'));
+app.use('/admin/orders.html', express.static('admin/orders.html'));
 app.listen(process.env.PORT);
+app.use(bodyParser.urlencoded({
+   extended: false
+}));
 
 
 
@@ -164,19 +169,71 @@ app.delete('/products/:id',function(request,response){
 });
 
 //create a new order
-app.post('/orders',function(request,response){
-    Order.create(request.body).then(function(order){
-        console.log(request.body);
-        Order.findById(order.id).then(function(order){
-             response.status(201).send(order);
+// app.post('/orders',function(request,response){
+//     Order.create(request.body).then(function(order){
+//         console.log(request.body);
+//         Order.findById(order.id).then(function(order){
+//              response.status(201).send(order);
+//         });
+//     });
+// });
+
+// app.post('/orders',function(request,response){
+//     Order.create({
+//     name: usr,
+//     phone: phone,
+//     email: email,
+//     address:address,
+//     details:details,
+//     total_payment:total_payment
+//   })
+//   .complete(function(err, order) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(order);
+//     }
+//   })
+// });
+
+app.post('/orders', function(req, res) {
+  Order
+    .build({
+    name:req.body.name,
+    phone:req.body.phone,
+    email: req.body.email,
+    address:req.body.address,
+    details:req.body.details,
+    total_payment:req.body.total_payment})
+        .save()
+        .then(function(order) {
+          console.log(req.body);
+         Order.findById(order.id).then(function(order){
+             res.status(201).send(order);
+         });
         });
-    });
 });
 
-app.post('/tranzactions',function(request,response){
-    Tranzaction.create(request.body).then(function(tranzaction){
-        Tranzaction.findById(tranzaction.id).then(function(order){
-             response.status(201).send(tranzaction);
+app.post('/tranzactions', function(req, res) {
+  Tranzaction
+    .build({
+    no_order:req.body.no_order,
+    id_product:req.body.id_product,
+    price: req.body.price,
+    quantity:req.body.quantity
+    })
+        .save()
+        .then(function(tranzaction) {
+          console.log(req.body);
+         Tranzaction.findById(tranzaction.id).then(function(tranzaction){
+             res.status(201).send(tranzaction);
+         });
         });
-    });
 });
+// app.post('/tranzactions',function(request,response){
+//     Tranzaction.create(request.body).then(function(tranzaction){
+//         Tranzaction.findById(tranzaction.id).then(function(order){
+//              response.status(201).send(tranzaction);
+//         });
+//     });
+// });
