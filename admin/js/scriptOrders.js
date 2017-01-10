@@ -56,7 +56,7 @@ function createMyProduct(){
     +'<td class="quantity">'+productQuantity+'</td>'
     +'<td class="product_id" style="display:none;">'+productId+'</td>'
     +'<td align="center">'
-    +'<button onclick="viewMyProduct('+productId+','+i+')" class="btn btn-edit">Update</button>'
+    +'<button style="display:none;" onclick="viewMyProduct('+productId+')" class="btn btn-edit">Update</button>'
     +'</td>'
      +'<td align="center">'
     +'<button onclick="deleteMyProduct('+i+')" class="btn btn-danger">Exclude</button>'
@@ -110,7 +110,7 @@ function insertOrderTranzactions(){
 }
 
 
-function viewMyProduct(idProduct, id){
+function viewMyProduct(idProduct){
 //     console.log("update!");
 //   console.log("id-ul prod upd este"+idProduct);
 //   console.log("id-ul randului este"+id);
