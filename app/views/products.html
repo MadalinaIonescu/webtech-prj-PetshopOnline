@@ -1,10 +1,6 @@
- <div>
+ <div >
     <h2>Products</h2>
-    <div class="row">
-    <select class="form-control" id="selId" name="selId">
-    </select>
-    <img class="imgDel" src="mediaApp/del.png" ng-click="delete()" >
-    </div>
+    
     <table id="products" class="table table-bordered table-striped">
         <tr>
             <th>ID.</th>
@@ -20,6 +16,7 @@
             <td>{{product.animal_destinated}}</td>
             <td>{{product.descriptions}}</td>
             <td>{{product.price}}</td>
+            <td><img class="imgDel" src="mediaApp/del.png" ng-click="delete($index,product.id)"></td>
         </tr>
     </table>
 </div>

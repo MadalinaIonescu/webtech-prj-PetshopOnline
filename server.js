@@ -45,12 +45,14 @@ var Order=sequelize.define('orders',{
     },
     name:{
         type:Sequelize.STRING,
-        field:'name'
+        field:'name',
+        validate: { notNull: true }
         
     },
      phone:{
         type:Sequelize.STRING,
-        field:'phone'
+        field:'phone',
+        validate: { notNull: true }
     },
     email:{
         type:Sequelize.STRING,
@@ -59,7 +61,8 @@ var Order=sequelize.define('orders',{
     },
     address:{
         type:Sequelize.STRING,
-        field:'address'
+        field:'address',
+        validate: { notNull: true }
         
     },
      details:{
@@ -101,6 +104,9 @@ app.use(cors());
 app.use(nodeadmin(app));
 app.use('/admin', express.static('admin'));
 app.use(express.static('app'));
+
+app.use("/",router);
+
 app.listen(process.env.PORT);
 // app.use(bodyParser.urlencoded({
 //   extended: false
@@ -144,6 +150,17 @@ app.get('/products/:id',function(request,response){
     });
 });
 
+router.get('/products/:id',function(request,response){
+    Product.findById(request.params.id).then(function(product){
+        if(product){
+              response.status(200).send(product);
+        }
+        else{
+            response.status(404).send();
+        }
+    });
+});
+
 //update a product using the id
 app.put('/products/:id',function(request,response){
   Product.findById(request.params.id).then(function(product){
@@ -165,6 +182,24 @@ app.put('/products/:id',function(request,response){
 
 //delete one product using the id
 app.delete('/products/:id',function(request,response){
+    Product.findById(request.params.id).then(function(product){
+        if(product){
+            product.destroy()
+            .then(function(){
+                response.status(204).send();
+            })
+            .catch (function(error){
+                response.status(500).send('Server error!');
+            });
+        }
+        else
+        {
+             response.status(404).send();
+        }
+  }); 
+});
+
+router.delete('/products/:id',function(request,response){
     Product.findById(request.params.id).then(function(product){
         if(product){
             product.destroy()
@@ -252,4 +287,4 @@ app.post('/tranzactions', function(req, res) {
 //     });
 // });
 
-app.use("/",router);
+

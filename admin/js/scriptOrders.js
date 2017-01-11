@@ -77,6 +77,9 @@ function createMyProduct(){
 function insertOrderTranzactions(){
    
     var formData=$('#order_form').serializeObject();
+    if(formData.name=='' || formData.phone=='' ||formData.address=='' )
+        alert('You missed something in the form!!! We connot process your order wihtou your name, your phone-number and your address!');
+    else{    
      $.ajax({
         url:'/orders/',
         type:'POST',
@@ -107,6 +110,7 @@ function insertOrderTranzactions(){
         window.open("thankYou.html", "_self");
 }
 });
+}
 }
 
 
