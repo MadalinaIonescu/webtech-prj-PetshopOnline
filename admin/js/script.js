@@ -101,7 +101,7 @@ function updateRecord(formData){
             json:'application/json'
         },
         data:formData,
-        succes:function(data){
+        success:function(data){
             
             console.log("update");
             $('#add_new_record_modal').modal('hide');
@@ -113,12 +113,12 @@ function updateRecord(formData){
             
            
         }
-    });
-             $('#add_new_record_modal').modal('hide');
-            $('#row_id_'+formData.id+'>td.product_name').html(formData.product_name);
-            $('#row_id_'+formData.id+'>td.animal_destinated').html(formData.animal_destinated);
-            $('#row_id_'+formData.id+'>td.descriptions').html(formData.descriptions);
-            $('#row_id_'+formData.id+'>td.price').html(formData.price);
+     });
+    //          $('#add_new_record_modal').modal('hide');
+    //         $('#row_id_'+formData.id+'>td.product_name').html(formData.product_name);
+    //         $('#row_id_'+formData.id+'>td.animal_destinated').html(formData.animal_destinated);
+    //         $('#row_id_'+formData.id+'>td.descriptions').html(formData.descriptions);
+    //         $('#row_id_'+formData.id+'>td.price').html(formData.price);
 }
 
 //delete Record
@@ -126,12 +126,12 @@ function deleteRecord(id){
     $.ajax({
         url:'/products/'+id,
         type:'DELETE',
-        succes:function(data){
+        success:function(data){
             $('#row_id_'+id).remove();
             console.log("deleted");
         }
     });
-     $('#row_id_'+id).remove();
+    // $('#row_id_'+id).remove();
 }
 
 $.fn.serializeObject=function()

@@ -3,6 +3,8 @@ var bodyParser=require("body-parser");
 var cors=require("cors");
 var nodeadmin=require("nodeadmin");
 var Sequelize=require("sequelize");
+var router=express.Router();
+
 
 var sequelize = new Sequelize('petshop_online', 'madalinaionescu', '', {
     dialect: 'mysql',
@@ -15,6 +17,7 @@ var Product=sequelize.define('products',{
     product_name:{
         type:Sequelize.STRING,
         field:'product_name'
+        
     },
     animal_destinated:{
         type:Sequelize.STRING,
@@ -22,11 +25,13 @@ var Product=sequelize.define('products',{
     },
      descriptions:{
         type:Sequelize.STRING,
-        field:'descriptions'
+        field:'descriptions',
+        defaultValue: null
     },
     price:{
         type:Sequelize.DOUBLE,
-        field:'price'
+        field:'price',
+        validate: { min:0 }
     }
 },{
      timestamps: false
@@ -41,6 +46,7 @@ var Order=sequelize.define('orders',{
     name:{
         type:Sequelize.STRING,
         field:'name'
+        
     },
      phone:{
         type:Sequelize.STRING,
@@ -48,11 +54,13 @@ var Order=sequelize.define('orders',{
     },
     email:{
         type:Sequelize.STRING,
-        field:'email'
+        field:'email',
+        validate: { isEmail: true }
     },
     address:{
         type:Sequelize.STRING,
         field:'address'
+        
     },
      details:{
         type:Sequelize.STRING,
@@ -92,11 +100,11 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(nodeadmin(app));
 app.use('/admin', express.static('admin'));
-app.use('/admin/orders.html', express.static('admin/orders.html'));
+app.use(express.static('app'));
 app.listen(process.env.PORT);
-app.use(bodyParser.urlencoded({
-   extended: false
-}));
+// app.use(bodyParser.urlencoded({
+//   extended: false
+// }));
 
 
 
@@ -112,6 +120,12 @@ app.post('/products',function(request,response){
 
 //read all products
 app.get('/products',function(request,response){
+  Product.findAll().then(function(products){
+  response.status(201).send(products); 
+  });
+});
+
+router.get('/products',function(request,response){
   Product.findAll().then(function(products){
   response.status(201).send(products); 
   });
@@ -237,3 +251,5 @@ app.post('/tranzactions', function(req, res) {
 //         });
 //     });
 // });
+
+app.use("/",router);

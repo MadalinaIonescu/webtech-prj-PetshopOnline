@@ -1,0 +1,28 @@
+ <div>
+    <h2>Products</h2>
+    <div class="row">
+    <select class="form-control" id="selId" name="selId">
+    </select>
+    <img class="imgDel" src="mediaApp/del.png" ng-click="delete()" >
+    </div>
+    <table id="products" class="table table-bordered table-striped">
+        <tr>
+            <th>ID.</th>
+            <th>Name</th>
+            <th>Animal destinated</th>
+            <th>Description</th>
+            <th>Standard price-RON</th>
+            <th>Delete</th>
+       </tr>
+        <tr ng-repeat="product in products ">
+            <td>{{product.id}}</td>
+            <td>{{product.product_name}}</td>
+            <td>{{product.animal_destinated}}</td>
+            <td>{{product.descriptions}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+    </table>
+</div>
+ 
+ 
+ 
