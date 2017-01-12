@@ -245,6 +245,12 @@ router.delete('/products/:id',function(request,response){
 //   })
 // });
 
+router.get('/orders',function(request,response){
+  Order.findAll().then(function(orders){
+  response.status(201).send(orders); 
+  });
+});
+
 app.post('/orders', function(req, res) {
   Order
     .build({

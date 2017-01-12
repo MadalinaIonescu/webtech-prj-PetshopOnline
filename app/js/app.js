@@ -1,5 +1,5 @@
 'use strict'
-let app = angular.module('myApp', ['ui.router', 'ProductsController'])
+let app = angular.module('myApp', ['ui.router', 'ProductsController','OrdersController'])
 
 app.config(['$stateProvider', '$urlRouterProvider', 
     function($stateProvider, $urlRouterProvider){

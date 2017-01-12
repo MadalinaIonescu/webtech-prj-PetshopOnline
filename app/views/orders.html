@@ -1,15 +1,21 @@
 <div>
-    <h2>Products</h2>
-    <table id="products" class="table table-bordered table-striped">
+    <h2>Orders</h2>
+    <table id="orders" class="table" >
         <tr>
-            <th>Nume</th>
+            <th>Name</th>
+            <th>Phone number</th>
             <th>Email</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Details</th>
         </tr>
-        <tr ng-repeat="product in products">
-            <td>{{author.name}}</td>
-            <td>{{author.email}}</td>
-            <td>{{author.email}}</td>
-            <td>{{author.email}}</td>
+        <tr ng-repeat="order in orders">
+            <td class="success">{{order.name}}</td>
+            <td class="warning">{{order.phone}}</td>
+            <td class="danger">{{order.email}}</td>
+            <td class="info">{{order.address}}</td>
+            <td class="active">{{order.data}}</td>
+            <td class="danger">{{order.details}}</td>
         </tr>
     </table>
 </div>
